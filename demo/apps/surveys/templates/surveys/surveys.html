@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/surveys/filled" method = "post">
+    {% csrf_token %}
+    Your Name: <input type="text" name="name" placeholder="name">
+    Dojo Location: <input type="text" name="location" placeholder="location">
+    Favorite Language: <input type="text" name="language" placeholder="language">
+    Comments: <textarea name="comments" placeholder="comments"></textarea>
+	<input type="submit" value="submit">
+    </form>
+</body>
+</html>
