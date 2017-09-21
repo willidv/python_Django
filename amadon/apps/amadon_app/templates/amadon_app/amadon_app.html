@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>amadon_app</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'amadon_app/css/amadon_app.css' %}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+    <h1>Amadon Store!</h1>
+    <div>
+        <div class="column" id="items">
+            <h3>Item</h3>
+            <p id="1"> Dojo Tshirt</p>
+            <p id="2"> Dojo Sweater</p>
+            <p id="3"> Dojo Cup</p>
+            <p id="4"> Dojo Book</p>
+        </div>
+        <div class="column" id="prices">
+            <h3>Price</h3>
+            <p>$19.99</p>
+            <p>$29.99</p>
+            <p>$4.99</p>
+            <p>$49.99</p>
+        </div>
+        <div class="column" id="action">
+            <h3>Actions</h3> 
+            <form class="choice" action='/amadon_app/buy' method='post'>
+                {% csrf_token %}
+                <select name='quantity'>
+                   <option value = '1' selected>1</option>
+                   <option  value = '2'>2</option> 
+                   <option  value = '3'>3</option>
+                </select>
+                <input type='hidden' name='p_id' value='1' />
+                <input type='hidden' name='test' value='14645314645' />
+                <input type='submit' value='Buy!' />
+            </form>
+            <form class="choice" action='/amadon_app/buy' method='post'>
+                {% csrf_token %}
+                <select name='quantity'>
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option>
+                </select>
+                <input type='hidden' name='p_id' value='2' />
+                <input type='submit' value='Buy!' />
+            </form>
+            <form class="choice" action='/amadon_app/buy' method='post'>
+                {% csrf_token %}
+                <select name='quantity'>
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option>
+                </select>
+                <input type='hidden' name='p_id' value='3' />
+                <input type='submit' value='Buy!' />
+            </form>
+            <form class="choice" action='/amadon_app/buy' method='post'>
+                {% csrf_token %}
+                <select name='quantity'>
+                   <option value = 1>1</option>
+                   <option>2</option>
+                   <option>3</option>
+                </select>
+                <input type='hidden' name='p_id' value='4' />
+                <input type='submit' value='Buy!' />
+            </form>             
+        </div>
+    </div>
+</body>
+</html>

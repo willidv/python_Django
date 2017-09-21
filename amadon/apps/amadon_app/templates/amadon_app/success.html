@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>amadon_app checkout</title>
+</head>
+<body>
+    <h1>Thank you for your business</h1>
+    <p>We charged your credit card for {{request.session.item_price}}</p>
+
+    <p>You have ordered {{request.session.items}} items so far and spent ${{request.session.total_price}} with Amadon.com</p>
+
+    <form action="/amadon_app/" method="post">
+        {% csrf_token %}
+        <input type="submit" value="go back">
+    </form>
+</body>
+</html>
