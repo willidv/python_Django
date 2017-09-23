@@ -1,0 +1,47 @@
+***MODELS.PY***
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models
+
+# Create your models here.
+class Dojos(models.Model):
+    name = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=2)
+
+    def __str__(self):
+        info = str(self.name) + " " + str(self.city) + " " + str(self.state)
+
+class Ninjas(models.Model):
+    Dojos = models.ForeignKey(Dojos, related_name = "dojo_id")
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        ninja_info = str(self.first_name) + " " + str(self.last_name)
+
+---------------------------------------------------------------------------------------------------------------------------
+***COMMANDS***
+python manage.py makemigrations
+python manage.py migrate
+python manage.py shell
+from apps.dojo_ninjas.models import *
+Dojos.objects.create(name="CodingDojo Sillicon Valley", city="Mountain View", state="CA")
+Dojos.objects.create(name="CodingDojo Seattle", city="Seattle", state="WA")
+Dojos.objects.create(name="CodingDojo New York", city="New York", state="NY")
+
+Ninjas.objects.create(Dojos=Dojos.objects.get(id=1), first_name="David", last_name="Williams")
+Ninjas.objects.create(Dojos=Dojos.objects.get(id=1), first_name="Virginia", last_name="Reardon")
+Ninjas.objects.create(Dojos=Dojos.objects.get(id=1), first_name="Mikey", last_name="P")
+
+Ninjas.objects.create(Dojos=Dojos.objects.get(id=5), first_name="Arya", last_name="Stark")
+Ninjas.objects.create(Dojos=Dojos.objects.get(id=5), first_name="Jon", last_name="Snow")
+Ninjas.objects.create(Dojos=Dojos.objects.get(id=5), first_name="Ned", last_name="Stark")
+
+Ninjas.objects.create(Dojos=Dojos.objects.get(id=6), first_name="Inspector Mike", last_name="BogDan")
+Ninjas.objects.create(Dojos=Dojos.objects.get(id=6), first_name="Vanny", last_name="B")
+Ninjas.objects.create(Dojos=Dojos.objects.get(id=6), first_name="Ryan", last_name="idk")
+
+Dojos.objects.first().Ninjas.all()
+Dojos.objects.last().Ninjas.all()
