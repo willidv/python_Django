@@ -1,0 +1,38 @@
+***IN MODELS.PY***
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models
+
+# Create your models here.
+class Users(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email_address = models.CharField(max_length=255)
+    age = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        info = str(self.first_name) + " " + str(self.last_name)
+        return info
+----------------------------------------------------------------------------------------------------------------------------
+***IN COMMAND PROMPT***
+python manage.py makemigrations
+python manage.py migrate
+python manage.py shell
+from apps.user_login.models import *
+Users.objects.create(first_name="Alexis", last_name="Wildling", email_address="WeAreFree@theLandofAlwaysWinter.com", age=34)
+Users.objects.create(first_name="Micah", last_name="Martell", "UnbowedUnbentUnbroken@sunspear.com", age= 35)
+Users.objects.create(first_name="Nathan", last_name="Tyrell", email_address="GrowingStrong@Highgarden.com", age=25)
+Users.objects.create(first_name="Steve", last_name="Mormont", email_address="HereWeStand@BearIsland.com", age= 25)
+Users.objects.create(first_name="David", last_name="Stark", email_address="WinterisComing@Winterfell.com", age= 28)
+Users.objects.first()
+Users.objects.last()
+Users.objects.order_by("-last_name")
+----------------------------------
+d = Users.objects.get(id=3)
+>>> d.last_name="Arryn"
+>>> d.save()
+---------------------------------
+Users.objects.get(id=4).delete()
