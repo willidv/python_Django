@@ -1,0 +1,107 @@
+***MODELS.PY***
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models
+
+# Create your models here.
+
+class Book(models.Model):
+    name = models.CharField(max_length=255)
+    desc = models.TextField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        book_info = str(self.name)
+        return book_info
+
+class Author(models.Model):
+    first_name = models.CharField(max_length = 255)
+    last_name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    books = models.ManyToManyField(Book, related_name = "authors")
+    notes = models.TextField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now =True)
+    
+
+    def __str__(self):
+        author_info = str(self.first_name) + " " + str(self.last_name)
+        return author_info
+----------------------------------------------------------------------------------------------------------------------------
+***COMMANDS***
+python manage.py makemigrations
+python manage.py migrate
+python manage.py shell
+from apps.books_authors.models import *
+
+Book.objects.create(name="C Sharp", desc="Programming language")
+Book.objects.create(name="Java", desc="Programming language")
+Book.objects.create(name="Python", desc="Programming language")
+Book.objects.create(name="PHP", desc="Programming language")
+Book.objects.create(name="Ruby", desc="Programming language")
+
+Author.objects.create(first_name="Mike", last_name="this", email="blah@blah.com")
+Author.objects.create(first_name="Speros", last_name="this", email="blah@blah.com")
+Author.objects.create(first_name="John", last_name="this", email="blah@blah.com")
+Author.objects.create(first_name="Jadee", last_name="this", email="blah@blah.com")
+Author.objects.create(first_name="Jay", last_name="this", email="blah@blah.com")
+---------------------------------------------------------------------------------------------------------------------------
+
+c = Book.objects.first()
+c.name = "C#"
+c.save()
+
+n = Author.objects.get(id=5)
+n.first_name="Ketul"
+n.save()
+---------------------------------------------------------------------------------------------------------------------------
+
+a1 = Author.objects.get(first_name="Mike")
+b1 = Book.objects.get(name="C#")
+a1.books.add(b1)
+***TO CHECK IF ABOVE COMMAND WORKED CORRECTLY***
+for b in Book.objects.all():
+...     print b, b.authors.all()
+...
+
+b2= Book.objects.get(name="Java")
+b2.save
+a1.books.add(b2)
+***TO CHECK IF ABOVE COMMAND WORKED CORRECTLY***
+for b in Book.objects.all():
+...     print b, b.authors.all()
+...
+
+b3 = Book.objects.get(name="Python")
+b3.save()
+
+b4 = Book.objects.get(name="PHP")
+b4.save()
+
+a2 = Author.objects.get(first_name="Speros")
+a2.books.add(b1)
+
+a2 = Author.objects.get(first_name="Speros")
+a2.books.add(b2)
+
+a2 = Author.objects.get(first_name="Speros")
+a2.books.add(b3)
+
+a3 = = Author.objects.get(first_name="John")
+a3.save()
+a3.books.add(b1, b2, b3, b4)
+----------------------------------------------------------------------------------------------------------------------------
+Book.objects.get(id=3).authors.all()
+
+a5 = Author.objects.get(first_name="Ketul")
+>>> a5.save()
+>>> a5.books.add(b2)
+>>> for b in Book.objects.all():
+...     print b, b.authors.all()
+
+
+a3.books.all()
+
+a2.books.all()
