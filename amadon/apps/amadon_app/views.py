@@ -63,7 +63,7 @@ def buy(request):
             request.session["items"] += (float(quantity))
         
 
-    return redirect(success)
+    return redirect(successful)
 
-def success(request):
+def successful(request):
     return render(request, "amadon_app/success.html" )
