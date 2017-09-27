@@ -34,13 +34,21 @@ class UserManager(models.Manager):
         password = postData['password']
         print email
         print password
-        user = User.objects.get(email = email)
-        if not user.email == postData['email']:
+        
+        try:
+            user = User.objects.get(email = email)           
+        except User.DoesNotExist:
+            user = None
+        if user == None:
             error.append("You must be a registered user")
-        if not user.password == postData['password']:
-            error.append("You must use the correct password")
-
-        return error
+            return error
+        if user:
+            if not user.password == postData['password']:
+                error.append("You must use the correct password")
+            return error
+        else:
+            error.append("You must be a registered user")
+            return error
 
 class User(models.Model):
      first_name = models.CharField(max_length = 255)
