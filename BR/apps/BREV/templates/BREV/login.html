@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Belt Reviewer</title>
+</head>
+<body>
+    <h1>Registration</h1>
+    {% for message in messages %}
+        {{message}}
+    {%endfor%}
+    <form action='/BREV/register' method='POST'>
+        {% csrf_token %}
+        First name:<input type="text" name="first_name"><br>
+        Last name:<input type="text" name="last_name"><br>
+        Email:<input type="text" name="email"><br>
+        Password:<input type="password" name="password"><br>
+        Confirm Password:<input type="password" name="confirm_password"><br>
+        <input type="submit" value="Submit">
+    </form><br><br>
+    <h1>Login</h1>
+    <form action='/BREV/login' method='POST'>
+        {% csrf_token %}
+        Email:<input type="text" name="email"><br>
+        Password:<input type="password" name="password"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome {{user.first_name}}!</h1>
+    <a href="/breview/new">Add Book and Review</a>
+    <a href="/breview/logout">Log Out</a>
+
+
+    <div>
+     <h3>Recent Book Reviews</h3>
+     </div>
+     {% for r in review %}
+    <div>
+    <p><a href="book/{{r.book.id}}">{{r.book.title}}</a></p>
+    <p>On {{r.created_at}} <a href="user/{{r.reviewer.alias}}">{{r.reviewer.first_name}}</a> says:</p>
+    <p>{{r.review}}</p>
+    <p>Rating : {{r.rating}}</p>
+    {% endfor %}
+    </div>
+
+    <h3>Your recent Reviews</h3>
+    </d Viv>
+    {% for r in reviews %}
+        
+        <p><a href="book/{{r.book.id}}">{{r.book.title}}</a></p>
+        <p>{{r.review}}</p>
+        <p>On {{r.created_at}}</p>
+        <p>Rating : {{r.rating}}</p>
+        <a href="remove/{{r.id}}">remove</a>
+        <p>{{r.thisreview.id}}</p>
+    {% endfor %}
+    <div>
+    <div>
+        <h3> Add a new review </h3>
+        <form action='/breview/add' method='POST'>
+            {% csrf_token %}
+            Book Title:<input type="text" name="title"><br>
+            Author:<input type="text" name="author"><br>
+            Review: <textarea name="review" placeholder="review"></textarea><br>
+        
+            <select name="rating">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            <input type="submit" value="Add"><br>
+        </form><br><br> 
+    </div>
+
+</body>
+</html>
