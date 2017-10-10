@@ -125,11 +125,11 @@ def message(request):
         message = request.POST['message']
         Message.objects.create(message = message, user = person, receiver = receiver)
 
-        # their_messages = Message.objects.exclude(user = person)
-        # context = {
-        #     "thisuser" : person,
-        #     "their_messages" : their_messages
-        # }
+        their_messages = Message.objects.exclude(user = person)
+        context = {
+            "thisuser" : person,
+            "their_messages" : their_messages
+        }
 
     return redirect( "user/"+request.POST["userval"])
 

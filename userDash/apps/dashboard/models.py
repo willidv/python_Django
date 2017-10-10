@@ -46,27 +46,6 @@ class UserManager(models.Manager):
                 error.append("You must use the correct password")
                 return error
 
-        # try:
-        #     user = User.objects.get(email = email)
-        # except User.DoesNotExist:
-        #     user = None
-        
-        # if user == None:
-        #     error.append("You must be a registered user")
-        #     return error
-        # if user:
-        #     if user.password != postData['password']:
-        #         error.append("You must use the correct password")
-        #         return error
-        #     else:
-        #         return error
-        # else:
-        #     error.append("You must be a registered user")
-        #     return error
-        
-
-
-
 class User(models.Model):
     first_name = models.CharField(max_length = 255)
     last_name = models.CharField(max_length = 255)

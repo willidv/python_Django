@@ -30,12 +30,14 @@
             {% csrf_token %}
         <input type="submit" value="follow">
         <input type= "hidden" name = "userval" value = "{{thisuser.id}}">
+        </form>
 
         {% elif request.session.id != thisuser.id %}
         <form action="/follow/{{thisuser.id}}" method="post">
             {% csrf_token %}
         <input type="submit" value="follow">
         <input type= "hidden" name = "userval" value = "{{thisuser.id}}">
+        </form>
         {% endif %}
     </div>
     <div>
