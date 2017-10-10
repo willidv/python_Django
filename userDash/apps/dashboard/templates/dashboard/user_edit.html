@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/dashboard/home">Home</a>
+
+<h1>Update</h1>
+{% for message in messages %}
+    {{message}}
+{%endfor%}
+<form action='/update/{{thisuser.id}}' method='POST'>
+    {% csrf_token %}
+    First name:<input type="text" name="first_name"><br>
+    Last name:<input type="text" name="last_name"><br>
+    Alias:<input type="text" name="alias"><br>
+    Email:<input type="text" name="email"><br>
+    Password:<input type="password" name="password"><br>
+    Confirm Password:<input type="password" name="confirm_password"><br>
+    <input type="submit" value="Submit">
+</form><br><br>
+
+</body>
+</html>

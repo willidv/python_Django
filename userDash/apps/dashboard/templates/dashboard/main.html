@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+</head>
+<body>
+    <a href="/dashboard/logout">Log Out</a>
+        {% if request.session.admin == False %}
+    <a href="/dashboard/home">Home</a>
+        {% elif request.session.admin == True %}
+        <a href="/dashboard/adminhome">Home</a>
+        {% endif %}
+
+    <div>
+            {% csrf_token %}
+        <p>{{ thisuser.first_name }} {{thisuser.last_name}}</p>
+        <P>Email: {{thisuser.email}}</P>
+        <P>User ID:{{thisuser.id}}</P>
+        <P>Registered at:{{thisuser.created_at}}</P>
+        {% if request.session.id == thisuser.id %}
+        <p> <a href = "/user_edit/{{thisuser.id}}">edit</a></p>
+       
+        {% elif request.session.admin == True %}
+        <p> <a href = "/user_edit/{{thisuser.id}}">edit</a></p>
+        <form action="/follow/{{thisuser.id}}" method="post">
+            {% csrf_token %}
+        <input type="submit" value="follow">
+        <input type= "hidden" name = "userval" value = "{{thisuser.id}}">
+
+        {% elif request.session.id != thisuser.id %}
+        <form action="/follow/{{thisuser.id}}" method="post">
+            {% csrf_token %}
+        <input type="submit" value="follow">
+        <input type= "hidden" name = "userval" value = "{{thisuser.id}}">
+        {% endif %}
+    </div>
+    <div>
+        <p>Followers List:</p>
+        {% for follower in their_followers %}
+        <ul>
+            <li>{{ follower.first_name }}</li>
+        </ul>
+        
+        {% endfor %}
+    </div>
+    <div>
+        <h3>Leave a message for {{thisuser.first_name}}</h3>
+        <form action="/dashboard/message" method="post">
+            {% csrf_token %}
+            Message: <textarea name="message" placeholder="message"></textarea>
+            <input type="submit" value="leave">
+            <input type= "hidden" name = "userval" value = "{{thisuser.id}}">
+        </form>
+        {% for message in their_messages %}
+            <a href="{{message.user.id}}"><p>{{message.user.first_name}}</a> says: {{message.message}}</p>
+        {% endfor %}
+
+    </div>
+</body>
+</html>
