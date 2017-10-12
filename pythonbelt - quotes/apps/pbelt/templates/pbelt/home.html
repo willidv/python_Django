@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/pbelt/logout">Log Out</a>
+    {% csrf_token %}
+    <h1>Welcome {{thisuser.name}}</h1>
+    <div>All quotes: {% for quote in quotes %}
+        <ul>
+            <li>
+                {{quote.author}} said {{quote.quote}}. posted by <a href="user/{{quote.posted_by.id}}">{{quote.posted_by.name}}</a>
+                <form action="/favorite/{{quote.id}}" method="post">
+                {% csrf_token %} <input type='submit' value="favorite">
+                </form>
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+    <div>Favorite quotes:
+        {% for q in fav_quotes %}
+        <ul>
+            <li>
+                {{q.author}} said {{q.quote}} posted by <a href="user/{{q.posted_by.id}}">{{q.posted_by.name}}</a>
+                <a href="pbelt/remove/{{q.id}}">remove</a>
+                
+            </li>
+        </ul>
+
+        {% endfor %}
+
+     </div>
+    <div>Add Quote: 
+        <form action="/pbelt/quote" method="post">
+            {% csrf_token %}
+            Quote: <textarea name="quote" placeholder="quote"></textarea>
+            Author:<input type="text" name="author">
+            <input type='submit' value="submit">
+        </form>
+    </div>
+</body>
+</html>
